@@ -1,0 +1,2 @@
+DROP TABLE IF EXISTS remembers;
+DROP TABLE IF EXISTS users;
