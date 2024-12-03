@@ -18,3 +18,8 @@ up:
 down:
 	@migrate -path migrations -database "$(DB_URL)" -verbose down
 
+compose-up:
+	@docker-compose up -d
+
+compose-down:
+	@docker-compose down

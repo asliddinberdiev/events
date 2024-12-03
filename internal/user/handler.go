@@ -1,4 +1,4 @@
-package users
+package user
 
 import (
 	"log"
@@ -17,15 +17,16 @@ type UserHandler struct {
 func NewUserHandler(serivce *UserService) *UserHandler {
 	return &UserHandler{service: serivce}
 }
-
-func (h *UserHandler) RegisterRoutes(app *fiber.App, basePath string) {
-	auth := app.Group(basePath + "/auth")
+func (h *UserHandler) RegisterRoutesPublic(app fiber.Router) {
+	auth := app.Group("/auth")
 	{
 		auth.Post("/register", h.Register)
 		auth.Post("/login", h.Login)
 	}
+}	
 
-	users := app.Group(basePath+"/users", middleware.AuthJWT)
+func (h *UserHandler) RegisterRoutesPrivate(app fiber.Router) {
+	users := app.Group("/users")
 	{
 		users.Get("", h.getAll)
 		users.Get("/:id", h.getByID)
